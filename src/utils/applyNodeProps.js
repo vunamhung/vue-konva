@@ -5,13 +5,8 @@ import updatePicture from './updatePicture';
 const propsToSkip = { key: true, style: true, elm: true, isRootInsert: true };
 const EVENTS_NAMESPACE = '.vue-konva-event';
 
-export default function applyNodeProps(
-  vueComponent,
-  props = {},
-  oldProps = {},
-  useStrict
-) {
-  const instance = vueComponent._konvaNode;
+export default function applyNodeProps(vueComponent, props = {}, oldProps = {}, useStrict) {
+  const instance = vueComponent.__konvaNode;
   var updatedProps = {};
   var hasUpdates = false;
   for (let key in oldProps) {
@@ -23,10 +18,7 @@ export default function applyNodeProps(
     if (isEvent && propChanged) {
       var eventName = key.substr(2).toLowerCase();
       if (eventName.substr(0, 7) === 'content') {
-        eventName =
-          'content' +
-          eventName.substr(7, 1).toUpperCase() +
-          eventName.substr(8);
+        eventName = 'content' + eventName.substr(7, 1).toUpperCase() + eventName.substr(8);
       }
       instance.off(eventName + EVENTS_NAMESPACE, oldProps[key]);
     }
@@ -44,21 +36,14 @@ export default function applyNodeProps(
     if (isEvent && toAdd) {
       let eventName = key.substr(2).toLowerCase();
       if (eventName.substr(0, 7) === 'content') {
-        eventName =
-          'content' +
-          eventName.substr(7, 1).toUpperCase() +
-          eventName.substr(8);
+        eventName = 'content' + eventName.substr(7, 1).toUpperCase() + eventName.substr(8);
       }
       if (props[key]) {
         instance.off(eventName + EVENTS_NAMESPACE);
         instance.on(eventName + EVENTS_NAMESPACE, props[key]);
       }
     }
-    if (
-      !isEvent &&
-      (props[key] !== oldProps[key] ||
-        (useStrict && props[key] !== instance.getAttr(key)))
-    ) {
+    if (!isEvent && (props[key] !== oldProps[key] || (useStrict && props[key] !== instance.getAttr(key)))) {
       hasUpdates = true;
       updatedProps[key] = props[key];
     }
