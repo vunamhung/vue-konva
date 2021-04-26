@@ -1,6 +1,6 @@
 {
   "name": "vue3-konva",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue binding to canvas element via Konva framework",
   "keywords": [
     "vue",
@@ -9,7 +9,7 @@
   ],
   "homepage": "https://github.com/konvajs/vue-konva#readme",
   "author": "Rafael Escala <rafaesc92@gmail.com>",
-  "main": "umd/vue-konva.js",
+  "main": "umd/vue3-konva.js",
   "types": "index.d.ts",
   "vetur": {
     "tags": "vetur/tags.json",
